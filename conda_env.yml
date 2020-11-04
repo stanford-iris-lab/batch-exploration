@@ -1,0 +1,32 @@
+name: batch_exp
+channels:
+  - kne  # for pybox2d
+  - pytorch
+  - anaconda  # for mkl
+dependencies:
+  - cython
+  - ipython  # technically unnecessary
+  - python=3.7.4
+  - joblib=0.13.2
+  - lockfile
+  - mako
+  - matplotlib=3.1.1
+  - mkl  # Need to add explicit dependence for pytorch
+  - numba=0.45.1
+  - numpy=1.17.2
+  - path.py=12.0.1
+  - python-dateutil=2.8.0
+  - pytorch=1.5.1
+  - scipy=1.4.1
+  - patchelf        # Linux only; comment this line out for Mac
+  - pip
+  - pip:
+      - cloudpickle==1.1.1
+      - glfw
+      - gym[all]==0.12.1
+      - gtimer==1.0.0b5
+      - box2d        # Linux only; comment this line out for Mac
+      - box2d-py  # Linux only; comment this line out for Mac
+      - tensorboardX==2.0
+      - click
+      - pyquaternion

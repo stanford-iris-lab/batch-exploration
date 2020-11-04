@@ -1,0 +1,89 @@
+<mujoco>
+    <include file="basic_scene.xml"/>
+    <include file="drawer_dependencies.xml"/>
+    <include file="block_dependencies.xml"/>
+    <include file="xyz_base_dependencies.xml"/>
+    <size nconmax="200"/>
+    <worldbody>
+        <include file="sawyer_xyz_base_no_table.xml"></include>
+
+        <camera mode="fixed" name="cam0" pos="0.78 0.12 0.75" quat="0.3858 -0.23 0.4379 -0.7886"/> 
+
+        
+        <body childclass="block_base" name="obj0" pos="0 0.4 0">
+            <joint name="objGeom0_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="0.0 0.5 0.5 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom0" class="block_col" pos="0 0 0" size="0.05 0.05 0.05" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj0" pos="0 0 0" size="0.05 0.05 0.05" rgba="0.0 0.5 0.5 1" type="box"></site>
+        </body>
+        
+        <body childclass="block_base" name="obj1" pos="0 0.4 0">
+            <joint name="objGeom1_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="1 .5 1 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom1" class="block_col" pos="0 0 0" size="0.05 0.05 0.05" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj1" pos="0 0 0" size="0.05 0.05 0.05" rgba="1 .5 1 1" type="box"></site>
+        </body>
+        
+        <body childclass="block_base" name="obj2" pos="0 0.4 0">
+            <joint name="objGeom2_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="0 0.0 1 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom2" class="block_col" pos="0 0 0" size="0.04 0.04 0.04" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj2" pos="0 0 0" size="0.04 0.04 0.04" rgba="0 0.0 1 1" type="box"></site>
+        </body>
+        
+        <body childclass="block_base" name="obj3" pos="0 0.4 0">
+            <joint name="objGeom3_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="1. 1. 0 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom3"class="block_col" pos="0 0 0" size="0.05 0.05 0.05" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj3" pos="0 0 0" size="0.05 0.05 0.05" rgba="1. 1. 0 1" type="box"></site>
+        </body>
+        
+        <body childclass="block_base" name="obj4" pos="0 0.4 0">
+            <joint name="objGeom4_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="0.5 0.5 0. 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom4" class="block_col" pos="0 0 0" size="0.04 0.04 0.04" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj4" pos="0 0 0" size="0.05 0.05 0.05" rgba="0.5 0.5 0. 1" type="box"></site>
+        </body>
+        
+        <body childclass="block_base" name="obj5" pos="0 0.4 0">
+            <joint name="objGeom5_x" type="free" limited="false" damping="0.01"></joint>
+          <geom rgba="1 0 0 1" pos="0 0 .02" mesh="block"/>
+          <geom name="objGeom5" class="block_col" pos="0 0 0" size="0.04 0.04 0.04" type="box" mass=".1"
+        solimp="0.99 0.99 0.01" solref="0.01 1"/>
+            <site name="obj5" pos="0 0 0" size="0.05 0.05 0.05" rgba="1 0 0 1" type="box"></site>
+        </body>
+        
+        <body name="drawer" pos="0.15 0.8 0">
+            <include file="drawer.xml"/>
+
+        </body>
+
+        <site name="goal" pos="0. 0.74 0.05" size="0.02"
+              rgba="0 0.8 0 1"/>
+
+    </worldbody>
+
+    <!-- <actuator>
+        <motor joint="right_j0" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j1" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j2" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j3" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j4" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j5" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor joint="right_j6" ctrlrange="-100.0 100.0" ctrllimited="false"/>
+        <motor gear="100" joint="r_close" name="slide"/>
+    </actuator> -->
+    <actuator>
+        <position ctrllimited="true" ctrlrange="-1 1" joint="r_close" kp="400"  user="1"/>
+        <position ctrllimited="true" ctrlrange="-1 1" joint="l_close" kp="400"  user="1"/>
+    </actuator>
+    <equality>
+        <weld body1="mocap" body2="hand" solref="0.02 1"></weld>
+    </equality>
+
+</mujoco>
