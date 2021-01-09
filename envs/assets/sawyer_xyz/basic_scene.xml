@@ -13,8 +13,8 @@
      <material name="table_wood" texture="T_table" shininess=".3" specular="0.5"/>
      <material name="table_col" rgba="0.3 0.3 1.0 0.5" shininess="0" specular="0"/>
 
-     <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/tablebody.stl" name="tablebody" scale="1 1 1"/>
-     <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/tabletop.stl" name="tabletop" scale="1 1 1"/>
+     <mesh file="../meshes/objects/tablebody.stl" name="tablebody" scale="1 1 1"/>
+     <mesh file="../meshes/objects/tabletop.stl" name="tabletop" scale="1 1 1"/>
   </asset>
 
   <visual>
