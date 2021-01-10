@@ -4,10 +4,10 @@ from gym.spaces import  Dict , Box
 import math
 import os
 # import torch
-from metaworld.envs.mujoco.sawyer_xyz.base import SawyerXYZEnv
+from metaworld.envs.mujoco.sawyer_xyz.sawyer_xyz_env import SawyerXYZEnv
 from PIL import Image
 from pyquaternion import Quaternion
-from metaworld.envs.mujoco.utils.rotation import euler2quat
+from metaworld.envs.mujoco.utils.rotation import quat_mul, quat2axisangle
 import cv2
 import imageio
 import matplotlib
@@ -16,6 +16,9 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.cm import ScalarMappable
 import time
+import inspect
+import sys
+import mujoco_py
 
 from manip_env.utils import _door_goal, _drawer_goal, _block_goal 
 
@@ -89,7 +92,6 @@ class Tabletop(SawyerXYZEnv):
         )
 
         self.imsize = 64
-        self.observation_space = Box(0, 1.0, (self.imsize*self.imsize*3, ))
         self.goal_space = self.observation_space
         
         '''For Logging'''
@@ -102,6 +104,10 @@ class Tabletop(SawyerXYZEnv):
         self.log_freq = log_freq
         self.epcount = 0 # num episodes so far 
         self.good_qpos = None # self.data.qpos[:7]
+
+    @property
+    def observation_space(self):
+        return Box(0, 1.0, (self.imsize*self.imsize*3, ))
 
     @property
     def model_name(self):
@@ -506,4 +512,83 @@ class Tabletop(SawyerXYZEnv):
                 self.filepath + '/Eps' + str(self.epcount) + '.gif', mode='I') as writer:
             for i in range(self.max_path_length + 1):
                 writer.append_data(self.imgs[i])
+                
+    def quick_init(self, locals_):
+        if getattr(self, "_serializable_initialized", False):
+            return
+        if sys.version_info >= (3, 0):
+            spec = inspect.getfullargspec(self.__init__)
+            # Exclude the first "self" parameter
+            if spec.varkw:
+                kwargs = locals_[spec.varkw].copy()
+            else:
+                kwargs = dict()
+            if spec.kwonlyargs:
+                for key in spec.kwonlyargs:
+                    kwargs[key] = locals_[key]
+        else:
+            spec = inspect.getargspec(self.__init__)
+            if spec.keywords:
+                kwargs = locals_[spec.keywords]
+            else:
+                kwargs = dict()
+        if spec.varargs:
+            varargs = locals_[spec.varargs]
+        else:
+            varargs = tuple()
+        in_order_args = [locals_[arg] for arg in spec.args][1:]
+        self.__args = tuple(in_order_args) + varargs
+        self.__kwargs = kwargs
+        setattr(self, "_serializable_initialized", True)
 
+    def set_xyz_action_rotz(self, action):
+        self.set_xyz_action(action[:3])
+        zangle_delta = action[3] * self.action_rot_scale
+        new_mocap_zangle = quat_to_zangle(self.data.mocap_quat[0]) + zangle_delta
+
+        # new_mocap_zangle = action[3]
+        new_mocap_zangle = np.clip(
+            new_mocap_zangle,
+            -3.0,
+            3.0,
+        )
+        if new_mocap_zangle < 0:
+            new_mocap_zangle += 2 * np.pi
+        self.data.set_mocap_quat('mocap', zangle_to_quat(new_mocap_zangle))
+
+
+def quat_to_zangle(quat):
+    q = quat_mul(quat_inv(quat_create(np.array([0, 1., 0]), np.pi / 2)), quat)
+    ax, angle = quat2axisangle(q)
+    return angle
+
+
+def zangle_to_quat(zangle):
+    """
+    :param zangle in rad
+    :return: quaternion
+    """
+    return quat_mul(quat_create(np.array([0, 1., 0]), np.pi / 2),
+                    quat_create(np.array([-1., 0, 0]), zangle))
+
+
+def quat_create(axis, angle):
+    """
+        Create a quaternion from an axis and angle.
+        :param axis The three dimensional axis
+        :param angle The angle in radians
+        :return: A 4-d array containing the components of a quaternion.
+    """
+    quat = np.zeros([4], dtype='float')
+    mujoco_py.functions.mju_axisAngle2Quat(quat, axis, angle)
+    return quat
+
+
+def quat_inv(quat):
+    """
+        Invert a quaternion, represented by a 4d array.
+        :param A quaternion (4-d array). Must not be the zero quaternion (all elements equal to zero)
+        :return: A 4-d array containing the components of a quaternion.
+    """
+    d = 1. / np.sum(quat ** 2)
+    return d * np.array([1., -1., -1., -1.]) * quat
