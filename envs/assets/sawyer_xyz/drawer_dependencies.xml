@@ -24,9 +24,9 @@
     </default>
 
     <asset>
-        <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/drawer/drawer.stl" name="drawer"/>
-        <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/drawer/drawercase.stl" name="drawercase"/>
-        <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/drawer/drawerhandle.stl" name="drawerhandle"/>
+        <mesh file="../meshes/objects/drawer/drawer.stl" name="drawer"/>
+        <mesh file="../meshes/objects/drawer/drawercase.stl" name="drawercase"/>
+        <mesh file="../meshes/objects/drawer/drawerhandle.stl" name="drawerhandle"/>
     </asset>
 
 </mujocoinclude>

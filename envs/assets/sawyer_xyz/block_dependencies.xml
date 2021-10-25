@@ -20,7 +20,7 @@
     </default>
 
     <asset>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/objects/block/block.stl" name="block"/>
+      <mesh file="../meshes/objects/block/block.stl" name="block"/>
     </asset>
 
 </mujocoinclude>

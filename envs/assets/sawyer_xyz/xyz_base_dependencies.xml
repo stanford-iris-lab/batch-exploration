@@ -4,17 +4,17 @@
 
       <material name="xyz_col" rgba="0.3 0.3 1.0 0.5" shininess="0" specular="0.5"/>
 
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/base.stl" name="base"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/eGripperBase.stl" name="eGripperBase"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/head.stl" name="head"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l0.stl" name="l0"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l1.stl" name="l1"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l2.stl" name="l2"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l3.stl" name="l3"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l4.stl" name="l4"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l5.stl" name="l5"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/l6.stl" name="l6"/>
-      <mesh file="/iris/u/asc8/taskexp/our-smm/manip_envs/assets/meshes/sawyer/pedestal.stl" name="pedestal"/>
+      <mesh file="../meshes/sawyer/base.stl" name="base"/>
+      <mesh file="../meshes/sawyer/eGripperBase.stl" name="eGripperBase"/>
+      <mesh file="../meshes/sawyer/head.stl" name="head"/>
+      <mesh file="../meshes/sawyer/l0.stl" name="l0"/>
+      <mesh file="../meshes/sawyer/l1.stl" name="l1"/>
+      <mesh file="../meshes/sawyer/l2.stl" name="l2"/>
+      <mesh file="../meshes/sawyer/l3.stl" name="l3"/>
+      <mesh file="../meshes/sawyer/l4.stl" name="l4"/>
+      <mesh file="../meshes/sawyer/l5.stl" name="l5"/>
+      <mesh file="../meshes/sawyer/l6.stl" name="l6"/>
+      <mesh file="../meshes/sawyer/pedestal.stl" name="pedestal"/>
     </asset>
 
     <default>

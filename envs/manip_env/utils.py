@@ -37,11 +37,9 @@ def _block_goal(block_num=1, hard=False):
                     size=(3,)) 
         if hard:
             block_1_pos = [-.1, .15, 0] + np.random.uniform(-0.02, 0.02, (3,))
-            block_2_pos = [.2, -.1, 0] + np.random.uniform(-0.02, 0.02, (3,)) 
-            block_0_pos = np.random.uniform( 
-                        (-.22, -0.02, 0.0),  
-                        (-.18, 0.02, 0.20), 
-                        size=(3,)) 
+            block_2_pos = [.2, -.1, 0] + np.random.uniform(-0.02, 0.02, (3,))
+            block_0_pos = np.random.uniform((-.2, -0.2, 0.0), (.2, 0.2, 0.20), size=(3,))
+          
         block_0_pos += np.random.uniform(-0.02, 0.02, (3,))
         gripper_pos = block_0_pos.copy()
         gripper_pos += np.random.uniform(-0.02, 0.02, (3,))
@@ -58,10 +56,8 @@ def _block_goal(block_num=1, hard=False):
         if hard:
             block_0_pos = [-.2, 0, 0] + np.random.uniform(-0.02, 0.02, (3,))
             block_2_pos = [.2, -.1, 0] + np.random.uniform(-0.02, 0.02, (3,)) 
-            block_1_pos = np.random.uniform( 
-                        (-.12, 0.13, 0.0),  
-                        (-.08, 0.17, 0.20), 
-                        size=(3,)) 
+            block_1_pos = np.random.uniform((-.2, -0.2, 0.0), (.2, 0.2, 0.20), size=(3,))
+          
         block_1_pos += np.random.uniform(-0.02, 0.02, (3,))
         gripper_pos = block_1_pos.copy()
         gripper_pos += np.random.uniform(-0.02, 0.02, (3,))
@@ -77,15 +73,15 @@ def _block_goal(block_num=1, hard=False):
         if hard:
             block_0_pos = [-.2, 0, 0] + np.random.uniform(-0.02, 0.02, (3,))
             block_1_pos = [-.1, .15, 0] + np.random.uniform(-0.02, 0.02, (3,))
-            block_2_pos = np.random.uniform(
-                        (.18, -0.12, 0.0),  
-                        (.22, -0.08, 0.20), 
-                        size=(3,)) 
+            block_2_pos = np.random.uniform((-.2, -0.2, 0.0), (.2, 0.2, 0.20), size=(3,))
+          
         block_2_pos += np.random.uniform(-0.02, 0.02, (3,))
         gripper_pos = block_2_pos.copy()
         gripper_pos += np.random.uniform(-0.02, 0.02, (3,))
         gripper_pos[1] += 0.6
         gripper_pos[2] = np.random.uniform(0.0, 0.20)
 
+    gripper_pos[2] = np.random.uniform(0.2, 0.30)
+    # gripper_pos = [.0, 0.6, 0.3]
     goal_pos = np.concatenate((gripper_pos, block_0_pos, block_1_pos, block_2_pos))
     return goal_pos
